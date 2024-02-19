@@ -7,7 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import DadosFornecedor from '../Pages/DadosFornecedor/Pagina';
 import ListaFornecedor from '../Pages/ListaFornecedor/Pagina';
 import CadastroFornecedor from '../Pages/CadastroFornecedor/Pagina';
-import GerarDadosTeste from '../Controle/GerarDadosTeste';
+import GerarDadosTeste from './Controle/GerarDadosTeste';
 import { useEffect } from 'react';
 const Stack=createNativeStackNavigator()
 
