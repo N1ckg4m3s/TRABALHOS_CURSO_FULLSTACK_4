@@ -14,8 +14,9 @@ TRABALHO NIVEL 1
 <hr>
 TRABALHO NIVEL 2
 <ul>
-<li> [EM ANDAMENTO] </li>
-<li>LINGUAGEM USADA: [EM ANDAMENTO] </li>
+<li> Posso criar um App de outra forma </li>
+<li>LINGUAGEM USADA: DART </li>
+<li>Framework: FLUTTER</li>
 </ul>
 
 <hr>
