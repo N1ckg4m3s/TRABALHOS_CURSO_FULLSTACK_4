@@ -1,0 +1,68 @@
+REQUISITOS:
+    * Responsividade
+    * Ver comentarios
+    * Comentar
+    * Explorar destinos,
+    * Consultar pacotes de viagens, 
+    * Efetuar reservas
+    * Contato com Equipe e hotelaria
+
+PAGINAS:
+    * MAIN:
+        -- HOTBAR PARA PESQUISA
+
+        -- APRESENTAÇÃO DA EMPRESA
+
+    * DESTINOS:
+        -- HOTBAR PARA PESQUISA
+
+        -- VOOS PARA O DESTINO COM HORARIO
+            DIRETO PARA TELA DE REVISÃO
+
+    * PACOTES:
+        -- HOTBAR PARA PESQUISA
+
+        -- POSSIBILIDADE DE TROCA
+            HOTEL,
+            VOO IDA,
+            VOO VOLTA,
+
+    * REVISÃO:
+        -- INFRMAÇÕES
+            HOTEL,
+            VOO IDA,
+            VOO VOLTA,
+            
+        VALOR TOTAL,
+
+        LISTA DE DICAS:
+            Não se atrase
+            Leve documentos
+            tome cuidade
+            ETC.
+
+
+
+-- == pensamentos == --
+por dia tem que ter 3 idas e volta para cada destino;
+
+os hoteis tem que ter avaliação;
+    comentario com estrela estrela [1 a 5];
+
+["Pacotes hotel"] é viagens com hotel de ida e volta
+    podendo trocar o voo pelo horario que o voo esta marcado
+    no Banco de dados e/ou por outra compania e/ou trocar qual
+    o hotel que vai ficar;
+
+["Pacotes ida e volta"] é apenas viagens de ida e volta
+    podendo trocar o voo pelo horario que o voo esta marcado
+    no Banco de dados e/ou por outra compania;
+
+Tem que ter disponibilidade de contato tanto com o serviço
+    quanto com o hotel;
+
+o User tem possibilidade de escolha se quer Voo apenas de ida  
+    selecionando origem/destino e dia de ida
+    ou ida e volta selecionando origem/destino e dia de ida e de volta
+
+Ao finalizar as escolhas [voo e hotelaria] vai para uma pagina para efetuar o pagamento
