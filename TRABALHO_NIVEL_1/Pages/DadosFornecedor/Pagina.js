@@ -15,6 +15,12 @@ const DadosFornecedor = ({ route,navigation }) => {
     
     const [Categorias,SetCategoria]=useState([])
     const [Endereco,SetEndereco]=useState({})
+
+    const Apagar=()=>{
+        FornecedorControlerCalled.RemoverFornecedor(Id)
+        navigation.goBack()
+    }
+
     const ObterDados=async ()=>{
         const AllData= await FornecedorControlerCalled.ObterPorID(Id)
         SetNome(AllData.Nome)
@@ -69,6 +75,10 @@ const DadosFornecedor = ({ route,navigation }) => {
                 />
             </View>
         </View>
+        <TouchableOpacity style={[Estilo.EditDataButton,Estilo.Centralizar]}
+            onPress={()=>{Apagar()}}>
+            <Text style={[Estilo.EditDataText,Estilo.Centralizar,{fontSize:11,backgroundColor:'#ff5050'}]}>REMOVER</Text>
+        </TouchableOpacity>
     </View>)
 }
 export default DadosFornecedor

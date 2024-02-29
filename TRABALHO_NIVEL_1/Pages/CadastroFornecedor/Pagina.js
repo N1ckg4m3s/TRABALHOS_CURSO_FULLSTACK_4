@@ -164,8 +164,8 @@ const CadastroFornecedor = ({route,navigation}) => {
                     </TouchableOpacity>
                 </View>
                 {Categorias.map((item,index)=>(
-                    <View style={{display:'flex',flexDirection:'row'}}>
-                        <Text key={index} style={Estilo.CategLi}>{item}</Text>
+                    <View key={index} style={{display:'flex',flexDirection:'row'}}>
+                        <Text style={Estilo.CategLi}>{item}</Text>
                         <TouchableOpacity onPress={()=>RemoveCategoria(index)} style={[
                             Estilo.BotConfigBase,
                             Estilo.Botoes,
@@ -260,8 +260,8 @@ const CadastroFornecedor = ({route,navigation}) => {
                     </TouchableOpacity>
                 </View>
                 {Telefones.map((item,index)=>(
-                    <View style={{display:'flex',flexDirection:'row'}}>
-                        <Text key={index} style={Estilo.CategLi}>{item}</Text>
+                    <View key={index} style={{display:'flex',flexDirection:'row'}}>
+                        <Text style={Estilo.CategLi}>{item}</Text>
                         <TouchableOpacity onPress={()=>RemoveTelefone(index)} style={[
                             Estilo.BotConfigBase,
                             Estilo.Botoes,
