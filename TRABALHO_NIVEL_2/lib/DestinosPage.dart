@@ -87,47 +87,109 @@ class _DestinosPageState extends State<DestinosPage> {
             const SizedBox(height: 10),
             SizedBox(
               width: maxWidth > 875 ? 850 : maxWidth,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  OpcoesVoo.isNotEmpty
-                      ? Filtro_Bar_VOO(
-                          opcoesVoo: OpcoesVoo,
-                          onChanged: (List<dynamic> Comps, String Ordem) {
-                            List<Voo> voosFiltrados = OpcoesVoo.where((voo) {
-                              return Comps.any((comp) =>
-                                  comp['Op'] == voo.companhiaAerea &&
-                                  comp['Abilitado']);
-                            }).toList();
-                            switch (Ordem) {
-                              case 'Maior valor':
-                                voosFiltrados
-                                    .sort((a, b) => b.preco.compareTo(a.preco));
-                                break;
-                              case 'Menor valor':
-                                voosFiltrados
-                                    .sort((a, b) => a.preco.compareTo(b.preco));
-                                break;
-                              case 'Menor tempo':
-                                voosFiltrados.sort(
-                                    (a, b) => a.duracao.compareTo(b.duracao));
-                                break;
-                              default:
-                                break;
-                            }
-
-                            setState(() {
-                              OpcoesVooFiltrado = voosFiltrados;
-                            });
-                          })
-                      : Container(),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Column(
+              child: maxWidth > 500
+                  ? Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        OpcoesVoo.isNotEmpty
+                            ? Filtro_Bar_VOO(
+                                opcoesVoo: OpcoesVoo,
+                                onChanged: (List<dynamic> Comps, String Ordem) {
+                                  List<Voo> voosFiltrados =
+                                      OpcoesVoo.where((voo) {
+                                    return Comps.any((comp) =>
+                                        comp['Op'] == voo.companhiaAerea &&
+                                        comp['Abilitado']);
+                                  }).toList();
+                                  switch (Ordem) {
+                                    case 'Maior valor':
+                                      voosFiltrados.sort(
+                                          (a, b) => b.preco.compareTo(a.preco));
+                                      break;
+                                    case 'Menor valor':
+                                      voosFiltrados.sort(
+                                          (a, b) => a.preco.compareTo(b.preco));
+                                      break;
+                                    case 'Menor tempo':
+                                      voosFiltrados.sort((a, b) =>
+                                          a.duracao.compareTo(b.duracao));
+                                      break;
+                                    default:
+                                      break;
+                                  }
+
+                                  setState(() {
+                                    OpcoesVooFiltrado = voosFiltrados;
+                                  });
+                                })
+                            : Container(),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: maxWidth >= 645 ? 640 : maxWidth - 12,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: GerarLista(
+                                  context,
+                                  maxWidth,
+                                  (Selecionado) => {
+                                    setState(
+                                      () {
+                                        ClaseParaSet == "IDA"
+                                            ? VooIda = Selecionado
+                                            : VooVolta = Selecionado;
+                                      },
+                                    )
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    )
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        OpcoesVoo.isNotEmpty
+                            ? Filtro_Bar_VOO(
+                                opcoesVoo: OpcoesVoo,
+                                onChanged: (List<dynamic> Comps, String Ordem) {
+                                  List<Voo> voosFiltrados =
+                                      OpcoesVoo.where((voo) {
+                                    return Comps.any((comp) =>
+                                        comp['Op'] == voo.companhiaAerea &&
+                                        comp['Abilitado']);
+                                  }).toList();
+                                  switch (Ordem) {
+                                    case 'Maior valor':
+                                      voosFiltrados.sort(
+                                          (a, b) => b.preco.compareTo(a.preco));
+                                      break;
+                                    case 'Menor valor':
+                                      voosFiltrados.sort(
+                                          (a, b) => a.preco.compareTo(b.preco));
+                                      break;
+                                    case 'Menor tempo':
+                                      voosFiltrados.sort((a, b) =>
+                                          a.duracao.compareTo(b.duracao));
+                                      break;
+                                    default:
+                                      break;
+                                  }
+
+                                  setState(() {
+                                    OpcoesVooFiltrado = voosFiltrados;
+                                  });
+                                })
+                            : Container(),
+                        const SizedBox(width: 10),
                         Container(
-                          width: maxWidth >= 645 ? 640 : maxWidth - 12,
+                          width: maxWidth >= 645 ? 640 : maxWidth,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -147,9 +209,6 @@ class _DestinosPageState extends State<DestinosPage> {
                         ),
                       ],
                     ),
-                  ),
-                ],
-              ),
             ),
           ],
         ),
@@ -166,7 +225,7 @@ class _DestinosPageState extends State<DestinosPage> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           VooFrame(SetS, maxWidth),
-          ValueFrame(VooIda, VooVolta, context)
+          ValueFrame(VooIda, VooVolta, context, maxWidth)
         ],
       ),
     );
@@ -180,7 +239,7 @@ class _DestinosPageState extends State<DestinosPage> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           VooFrame(SetS, maxWidth),
-          ValueFrame(VooIda, VooVolta, context)
+          ValueFrame(VooIda, VooVolta, context, maxWidth)
         ],
       ),
     );
@@ -424,7 +483,7 @@ TextButton CardSimplesCel(
 Container VooSelected(Voo? voo, String Tipo, double maxWidth) {
   if (voo != null) {
     return Container(
-      width: maxWidth > 444 ? 444 : maxWidth - 434,
+      width: maxWidth > 444 ? 444 : maxWidth - 10,
       height: 100,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -601,11 +660,11 @@ Container VooFrame(SetS, double maxWidth) {
   );
 }
 
-Container ValueFrame(Voo? V1, Voo? V2, context) {
+Container ValueFrame(Voo? V1, Voo? V2, context, double maxWidth) {
   return Container(
     // PREÇO TOTAL CARD
-    width: 200,
-    height: 259,
+    width: maxWidth > 550 ? 200 : 300,
+    height: 265,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(10),
       border: Border.all(color: const Color.fromRGBO(0, 0, 0, 1), width: 1),
@@ -624,7 +683,7 @@ Container ValueFrame(Voo? V1, Voo? V2, context) {
               ),
             )),
         Container(
-          width: 250,
+          width: maxWidth > 550 ? 250 : 300,
           height: 177,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),

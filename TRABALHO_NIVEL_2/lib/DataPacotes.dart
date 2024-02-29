@@ -271,7 +271,7 @@ class _DataPacotesState extends State<DataPacotes> {
         children: [
           VooFrame(SetS, maxWidth),
           AcomodFrame(Hotel, SetS),
-          ValueFrame(VooIda, VooVolta, Hotel, context)
+          ValueFrame(VooIda, VooVolta, Hotel, context, maxWidth)
         ],
       ),
     );
@@ -286,7 +286,7 @@ class _DataPacotesState extends State<DataPacotes> {
         children: [
           VooFrame(SetS, maxWidth),
           AcomodFrame(Hotel, SetS),
-          ValueFrame(VooIda, VooVolta, Hotel, context)
+          ValueFrame(VooIda, VooVolta, Hotel, context, maxWidth)
         ],
       ),
     );
@@ -328,18 +328,7 @@ Wrap GerarLista(context, double maxWidth, Sess) {
                   OpcoesVooFiltrado.isNotEmpty
                       ? OpcoesVooFiltrado[index]
                       : OpcoesVoo[index],
-                  (Voo Selecionado) => {
-                    if (ClaseParaSet == "FINALIZAR")
-                      {
-                        Navigator.pushNamed(context, "/Finish", arguments: {
-                          'Voo1': VooIda,
-                          'Voo2': VooVolta,
-                          'Hotel': Hotel
-                        })
-                      }
-                    else
-                      {Sess(Selecionado)}
-                  },
+                  (Voo Selecionado) => {Sess(Selecionado)},
                   ClaseParaSet,
                   maxWidth,
                 )
@@ -349,10 +338,7 @@ Wrap GerarLista(context, double maxWidth, Sess) {
                       : OpcoesVoo[index],
                   (Voo Selecionado) => {
                     if (ClaseParaSet == "FINALIZAR")
-                      {
-                        Navigator.pushNamed(context, "/Finish",
-                            arguments: {'Voo1': VooIda, 'Voo2': VooVolta})
-                      }
+                      {CheckToSend(context)}
                     else
                       {Sess(Selecionado)}
                   },
@@ -886,7 +872,7 @@ TextButton CardSimplesCel(
 Container VooSelected(Voo? voo, String Tipo, double maxWidth) {
   if (voo != null) {
     return Container(
-      width: maxWidth > 444 ? 444 : maxWidth - 434,
+      width: maxWidth > 444 ? 444 : maxWidth - 10,
       height: 100,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -1063,11 +1049,11 @@ Container VooFrame(SetS, double maxWidth) {
   );
 }
 
-Container ValueFrame(Voo? V1, Voo? V2, Predio? V3, context) {
+Container ValueFrame(Voo? V1, Voo? V2, Predio? V3, context, double maxWidth) {
   return Container(
     // PREÇO TOTAL CARD
-    width: 200,
-    height: 259,
+    width: maxWidth > 900 ? 200 : 300,
+    height: 265,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(10),
       border: Border.all(color: const Color.fromRGBO(0, 0, 0, 1), width: 1),
@@ -1076,17 +1062,17 @@ Container ValueFrame(Voo? V1, Voo? V2, Predio? V3, context) {
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        const SizedBox(
-            width: 250,
+        SizedBox(
+            width: maxWidth > 900 ? 200 : 300,
             height: 35,
-            child: Center(
+            child: const Center(
               child: Text(
                 'TOTAL',
                 style: TextStyle(fontSize: 20),
               ),
             )),
         Container(
-          width: 250,
+          width: maxWidth > 900 ? 200 : 300,
           height: 177,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
@@ -1155,13 +1141,7 @@ Container ValueFrame(Voo? V1, Voo? V2, Predio? V3, context) {
           ),
         ),
         TextButton(
-            onPressed: () => {
-                  Navigator.pushNamed(context, "/Finish", arguments: {
-                    'Voo1': VooIda,
-                    'Voo2': VooVolta,
-                    'Hotel': Hotel
-                  })
-                },
+            onPressed: () => CheckToSend(context),
             child: Container(
                 width: 175,
                 height: 35,
@@ -1392,4 +1372,11 @@ Container AcomodFrame(Predio? Acomod, SetS) {
       ],
     ),
   );
+}
+
+void CheckToSend(context) {
+  if (VooIda != null && VooVolta != null && Hotel != null) {
+    Navigator.pushNamed(context, "/Finish",
+        arguments: {'Voo1': VooIda, 'Voo2': VooVolta, 'Hotel': Hotel});
+  }
 }

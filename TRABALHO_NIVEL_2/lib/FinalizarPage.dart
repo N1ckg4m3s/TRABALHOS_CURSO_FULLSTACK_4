@@ -3,6 +3,7 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_app_test/Components/HeaderBar.dart';
 import 'package:my_app_test/Controle/Classes.dart';
 
 int Tip = 3;
@@ -26,7 +27,7 @@ class FinishPage extends StatelessWidget {
         Tip = 2;
       }
       if (args['Hotel'] != null) {
-        Volta = args['Hotel'];
+        Hotel = args['Hotel'];
         Tip = 3;
       }
     } else {
@@ -56,17 +57,12 @@ class FinishPage extends StatelessWidget {
       width: maxWidth,
       child: Column(
         children: [
-          Image.asset(
-            "assets/FundoTela.jpg",
-            width: maxWidth,
-            height: 100,
-            fit: BoxFit.cover,
-          ),
+          HeaderBar(),
           const SizedBox(width: 10),
           Column(
             children: [
               SizedBox(
-                width: maxWidth * .505,
+                width: maxWidth,
                 height: 35,
                 child: Text(
                   "RESUMO DA VIAGEM",
@@ -76,8 +72,8 @@ class FinishPage extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: maxWidth > 510 ? 510 : maxWidth,
-                child: maxWidth > 510
+                width: maxWidth > 800 ? 800 : maxWidth,
+                child: maxWidth > 830
                     ? Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -94,9 +90,9 @@ class FinishPage extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              if (Tip >= 1) VooSelec("IDA", Ida),
+                              if (Tip >= 1) VooSelec("IDA", Ida, maxWidth),
                               const SizedBox(height: 5),
-                              if (Tip >= 2) VooSelec("VOLTA", Volta),
+                              if (Tip >= 2) VooSelec("VOLTA", Volta, maxWidth),
                               if (Tip >= 3)
                                 Row(
                                   children: [
@@ -110,15 +106,16 @@ class FinishPage extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                              if (Tip >= 3) HotelSelec(Hotel),
+                              if (Tip >= 3) HotelSelec(Hotel, maxWidth),
                             ],
                           ),
-                          TotalCard(Tip, Ida, Volta, Hotel),
+                          TotalCard(Tip, Ida, Volta, Hotel, maxWidth),
                         ],
                       )
                     : Column(
                         children: [
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               const Icon(Icons.airplanemode_active),
                               Text(
@@ -129,11 +126,12 @@ class FinishPage extends StatelessWidget {
                               ),
                             ],
                           ),
-                          if (Tip >= 1) VooSelec("IDA", Ida),
+                          if (Tip >= 1) VooSelec("IDA", Ida, maxWidth),
                           const SizedBox(height: 5),
-                          if (Tip >= 2) VooSelec("VOLTA", Volta),
+                          if (Tip >= 2) VooSelec("VOLTA", Volta, maxWidth),
                           if (Tip >= 3)
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 const Icon(Icons.hotel),
                                 Text(
@@ -144,11 +142,12 @@ class FinishPage extends StatelessWidget {
                                 ),
                               ],
                             ),
-                          if (Tip >= 3) HotelSelec(Hotel),
-                          TotalCard(Tip, Ida, Volta, Hotel),
+                          if (Tip >= 3) HotelSelec(Hotel, maxWidth),
+                          TotalCard(Tip, Ida, Volta, Hotel, maxWidth),
                         ],
                       ),
               ),
+              Mensagem(maxWidth),
             ],
           )
         ],
@@ -157,9 +156,9 @@ class FinishPage extends StatelessWidget {
   }
 }
 
-Container VooSelec(String Tipo, Voo? voo) {
+Container VooSelec(String Tipo, Voo? voo, double maxWidth) {
   return Container(
-    width: 600,
+    width: maxWidth > 610 ? 600 : maxWidth,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(10),
       border: Border.all(width: 1, color: Colors.black),
@@ -192,7 +191,7 @@ Container VooSelec(String Tipo, Voo? voo) {
           )),
         ),
         Container(
-          width: 498,
+          width: maxWidth > 610 ? 600 - 102 : maxWidth - 102,
           height: 100,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
@@ -263,10 +262,10 @@ Container VooSelec(String Tipo, Voo? voo) {
   );
 }
 
-Container HotelSelec(Predio? predio) {
+Container HotelSelec(Predio? predio, double maxWidth) {
   if (predio == null) return Container();
   return Container(
-    width: 600,
+    width: maxWidth > 610 ? 600 : maxWidth,
     height: 150,
     color: const Color.fromRGBO(200, 200, 200, 1),
     child: Row(
@@ -286,7 +285,7 @@ Container HotelSelec(Predio? predio) {
                       150), // Use um espaço reservado caso predio ou predio.image seja nulo
         ),
         Container(
-          width: 475,
+          width: maxWidth > 610 ? 600 - 125 : maxWidth - 125,
           height: 150,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
@@ -362,9 +361,9 @@ Container HotelSelec(Predio? predio) {
   );
 }
 
-Container TotalCard(int Q, Voo? v1, Voo? v2, Predio? predio) {
+Container TotalCard(int Q, Voo? v1, Voo? v2, Predio? predio, double maxWidth) {
   return Container(
-    width: 175,
+    width: maxWidth > 610 ? 150 : maxWidth * .625,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(10),
       border: Border.all(width: 1, color: Colors.black),
@@ -480,5 +479,56 @@ Container TotalCard(int Q, Voo? v1, Voo? v2, Predio? predio) {
         )
       ],
     ),
+  );
+}
+
+SizedBox Mensagem(double maxWidth) {
+  return SizedBox(
+    width: maxWidth > 800 ? 780 : maxWidth - 20,
+    child: Column(
+      children: [
+        const Text("INFORMAÇÕES IMPORTANTES", style: TextStyle(fontSize: 20)),
+        const Text(
+            'Os serviços sitados ainda não foram reservados, as reservas só serão concluidas apos conferimento de disponibilidade e pegamento'),
+        const SizedBox(width: 5, height: 5),
+        CaixaTxt(maxWidth, "Chegue cedo: ",
+            "Não se atrase! Chegue ao aeroporto com antecedência para evitar correrias."),
+        CaixaTxt(maxWidth, "Documentação em ordem: ",
+            "Tenha passaporte, visto e cartão de embarque à mão."),
+        CaixaTxt(maxWidth, "Bagagem de mão organizada: ",
+            "Prepare seus itens essenciais com antecedência e siga as regras de bagagem."),
+        CaixaTxt(maxWidth, "Segurança em primeiro lugar: ",
+            "Esteja atento às instruções e políticas de segurança do aeroporto."),
+        CaixaTxt(maxWidth, "Atenção aos anúncios: ",
+            "Fique atento aos avisos sobre mudanças no horário ou portão de embarque."),
+        CaixaTxt(maxWidth, "Respeite as prioridades: ",
+            "Permita que passageiros prioritários embarquem primeiro."),
+        CaixaTxt(maxWidth, "Fique atento ao tempo: ",
+            "Esteja pronto para se dirigir ao portão assim que seu voo for chamado."),
+        const SizedBox(width: 5, height: 35)
+      ],
+    ),
+  );
+}
+
+Container CaixaTxt(double maxWidth, String Tit, String Txt) {
+  return Container(
+    alignment: Alignment.topLeft,
+    width: maxWidth > 810 ? 800 : maxWidth,
+    child: Column(children: [
+      RichText(
+        text: TextSpan(children: [
+          TextSpan(
+              text: Tit,
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold, color: Colors.black)),
+          TextSpan(
+            text: Txt,
+            style: const TextStyle(color: Colors.black),
+          ),
+        ]),
+      ),
+      const SizedBox(width: 5, height: 10)
+    ]),
   );
 }

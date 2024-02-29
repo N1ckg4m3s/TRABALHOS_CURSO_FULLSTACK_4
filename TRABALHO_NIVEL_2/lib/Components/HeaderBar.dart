@@ -80,7 +80,7 @@ class HeaderBarState extends State<HeaderBar> {
     return Stack(
       children: [
         Image.asset(
-          "FundoTela.jpg",
+          "assets/FundoTela.jpg",
           width: maxWidth,
           height: maxWidth <= 1200 ? 500 : 370,
           fit: BoxFit.cover,
@@ -121,15 +121,25 @@ class HeaderBarState extends State<HeaderBar> {
                   AbrirNavBar = true;
                 });
               },
+              style: ButtonStyle(
+                padding: MaterialStateProperty.all(EdgeInsets.zero),
+                overlayColor: MaterialStateProperty.all(Colors.transparent),
+                foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) {
+                    return Colors.black;
+                  },
+                ),
+              ),
               child: Icon(Icons.menu, color: Color.fromRGBO(0, 0, 0, 1))),
         if (AbrirNavBar && ButtonNavBar)
-          // Stack(children: [
-          NavBarCel(() => {
-                setState(() {
-                  AbrirNavBar = false;
-                })
-              }),
-        if (!ButtonNavBar) NavBarOutros(maxWidth),
+          NavBarCel(
+              () => {
+                    setState(() {
+                      AbrirNavBar = false;
+                    })
+                  },
+              context),
+        if (!ButtonNavBar) NavBarOutros(maxWidth, context),
       ],
     );
   }
@@ -230,6 +240,15 @@ class HeaderBarState extends State<HeaderBar> {
               }),
               selectDate(context, Contr)
             },
+            style: ButtonStyle(
+              padding: MaterialStateProperty.all(EdgeInsets.zero),
+              overlayColor: MaterialStateProperty.all(Colors.transparent),
+              foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                (Set<MaterialState> states) {
+                  return Colors.black;
+                },
+              ),
+            ),
             child: Row(children: [
               Container(
                 width: 128,
@@ -250,6 +269,16 @@ class HeaderBarState extends State<HeaderBar> {
                             Contr.text = "";
                           })
                         },
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(EdgeInsets.zero),
+                      overlayColor:
+                          MaterialStateProperty.all(Colors.transparent),
+                      foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                        (Set<MaterialState> states) {
+                          return Colors.black;
+                        },
+                      ),
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
@@ -264,65 +293,6 @@ class HeaderBarState extends State<HeaderBar> {
 
   //          RESPONSIVIDADE
   // TOP BAR
-  Widget BotaoNavBar(String Texto, String Route) {
-    return TextButton(
-        onPressed: () => {Navigator.pushNamed(context, Route)},
-        child: Text(Texto,
-            style: GoogleFonts.irishGrover(
-                textStyle: TextStyle(fontSize: 20),
-                color: Color.fromRGBO(0, 0, 0, 1))));
-  }
-
-  Widget NavBarCel(CallBack) {
-    return Positioned.fill(
-        child: Stack(
-      children: [
-        Container(
-          alignment: Alignment.center,
-          color: Color.fromRGBO(255, 255, 255, .8),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                BotaoNavBar("DESTINOS", "/Main"),
-                BotaoNavBar("PACOTES", "/Pacotes"),
-                BotaoNavBar("SOBRE/CONTATO", "CnttSobr"),
-              ],
-            ),
-          ),
-        ),
-        Positioned(
-          top: 5,
-          left: 5,
-          child: TextButton(
-              onPressed: CallBack,
-              child: Icon(Icons.close, color: Color.fromRGBO(0, 0, 0, 1))),
-        ),
-      ],
-    ));
-  }
-
-  Widget NavBarOutros(double maxWidth) {
-    return Positioned(
-      top: 10,
-      width: maxWidth,
-      child: FractionallySizedBox(
-        alignment: Alignment.center,
-        widthFactor: .45,
-        child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              BotaoNavBar("DESTINOS", "/Main"),
-              BotaoNavBar("PACOTES", "/Pacotes"),
-              BotaoNavBar("SOBRE/CONTATO", "/CnttSobr"),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   // Search
   Widget ChoiceInput(String Texto) {
     return SizedBox(
@@ -430,12 +400,21 @@ class HeaderBarState extends State<HeaderBar> {
       padding: EdgeInsets.only(top: 10, bottom: 10),
       child: Container(
         width: 200,
-        height: 35,
+        height: 45,
         decoration: BoxDecoration(
           color: Color.fromARGB(255, 20, 255, 0),
           borderRadius: BorderRadius.circular(10),
         ),
         child: TextButton(
+          style: ButtonStyle(
+            padding: MaterialStateProperty.all(EdgeInsets.zero),
+            overlayColor: MaterialStateProperty.all(Colors.transparent),
+            foregroundColor: MaterialStateProperty.resolveWith<Color>(
+              (Set<MaterialState> states) {
+                return Colors.black;
+              },
+            ),
+          ),
           onPressed: () => {
             if (OrigenControler.text.isNotEmpty &&
                 DestinoControler.text.isNotEmpty &&
@@ -500,11 +479,79 @@ class HeaderBarState extends State<HeaderBar> {
   }
 }
 
-/*
+Widget BotaoNavBar(String Texto, String Route, context) {
+  return TextButton(
+      onPressed: () => {Navigator.pushNamed(context, Route)},
+      style: ButtonStyle(
+        padding: MaterialStateProperty.all(EdgeInsets.zero),
+        overlayColor: MaterialStateProperty.all(Colors.transparent),
+        foregroundColor: MaterialStateProperty.resolveWith<Color>(
+          (Set<MaterialState> states) {
+            return Colors.black;
+          },
+        ),
+      ),
+      child: Text(Texto,
+          style: GoogleFonts.irishGrover(
+            textStyle: TextStyle(fontSize: 20),
+          )));
+}
 
-[OrigenControler.text,
-DestinoControler.text,
-IdaControler.text,
-VoltaControler.text]
+Widget NavBarCel(CallBack, context) {
+  return Positioned.fill(
+      child: Stack(
+    children: [
+      Container(
+        alignment: Alignment.center,
+        color: Color.fromRGBO(255, 255, 255, .8),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              BotaoNavBar("DESTINOS", "/Main", context),
+              BotaoNavBar("PACOTES", "/Pacotes", context),
+              BotaoNavBar("SOBRE/CONTATO", "/CnttSobr", context),
+            ],
+          ),
+        ),
+      ),
+      Positioned(
+        top: 5,
+        left: 5,
+        child: TextButton(
+            onPressed: CallBack,
+            style: ButtonStyle(
+              padding: MaterialStateProperty.all(EdgeInsets.zero),
+              overlayColor: MaterialStateProperty.all(Colors.transparent),
+              foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                (Set<MaterialState> states) {
+                  return Colors.black;
+                },
+              ),
+            ),
+            child: Icon(Icons.close, color: Color.fromRGBO(0, 0, 0, 1))),
+      ),
+    ],
+  ));
+}
 
-*/
+Widget NavBarOutros(double maxWidth, context) {
+  return Positioned(
+    top: 10,
+    width: maxWidth,
+    child: FractionallySizedBox(
+      alignment: Alignment.center,
+      widthFactor: .45,
+      child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            BotaoNavBar("DESTINOS", "/Main", context),
+            BotaoNavBar("PACOTES", "/Pacotes", context),
+            BotaoNavBar("SOBRE/CONTATO", "/CnttSobr", context),
+          ],
+        ),
+      ),
+    ),
+  );
+}

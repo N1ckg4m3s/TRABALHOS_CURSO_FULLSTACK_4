@@ -42,13 +42,14 @@ class FiltroBarVooState extends State<Filtro_Bar_VOO> {
 
   @override
   Widget build(BuildContext context) {
+    double maxWidth = MediaQuery.of(context).size.width;
     ColocarDadosCompania();
     return Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: Colors.white,
             border: Border.all(width: 1, color: Colors.black)),
-        width: 190,
+        width: maxWidth >= 875 ? 190 : 300,
         child: Padding(
           padding: const EdgeInsets.all(5),
           child: Column(
@@ -152,13 +153,14 @@ class FiltroBarHotelState extends State<Filtro_Bar_HOTEL> {
 
   @override
   Widget build(BuildContext context) {
+    double maxWidth = MediaQuery.of(context).size.width;
     ColocarDadosCompania();
     return Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: Colors.white,
             border: Border.all(width: 1, color: Colors.black)),
-        width: 190,
+        width: maxWidth > 900 ? 200 : 300,
         child: Padding(
           padding: const EdgeInsets.all(5),
           child: Column(
