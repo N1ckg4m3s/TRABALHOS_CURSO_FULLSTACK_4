@@ -22,8 +22,8 @@ TRABALHO NIVEL 2
 <hr>
 TRABALHO NIVEL 3
 <ul>
-<li> [EM ANDAMENTO] </li>
-<li>LINGUAGEM USADA: [EM ANDAMENTO] </li>
+<li> Lidando com sensores em dispositivos móveis </li>
+<li>LINGUAGEM USADA: Java </li>
 </ul>
 
 <hr>

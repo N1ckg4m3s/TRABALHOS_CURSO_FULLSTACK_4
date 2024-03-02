@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/butLerMag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ler mensagens?"
+        android:textColor="#000000"
+        android:background="#4285F4"
+        android:padding="3dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/butCmdVoz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Commando de voz"
+        android:textColor="#000000"
+        android:background="#4285F4"
+        android:padding="3dp"
+        android:layout_below="@id/butLerMag"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        tools:ignore="HardcodedText" />
+
+</RelativeLayout>
