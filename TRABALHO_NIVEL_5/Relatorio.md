@@ -25,10 +25,10 @@
 **[Link para o Aplicativo](https://Trab5-Sem4-App.azurewebsites.net)**  
 (Aplicativo criado em 04/03/2024)
 
-![Imagem 2](./images/Image2.png)
+![Imagem 2](./images/image2.png)
 
 -----------------------------------------
 
-![Imagem 3](./images/Image3.png)
+![Imagem 3](./images/image3.png)
 
 Atualmente o site está suspenso, pois estava usando a conta de estudante (plano gratuito por 1 mês)
